@@ -3,16 +3,10 @@ import java.util.Scanner;
 class Values
 {
 protected int a,b;
-    public void putValues()
+    public void putValues(int x,int y)
     {
-        Scanner sc = new Scanner(System.in);
-        
-        System.out.println("Enter First Number: ");
-        a = sc.nextInt();
-        System.out.println("Enter Second Number: ");
-        b = sc.nextInt();
-        
-       //sc.close(); preferable not use this way.. will learn later in resource management
+    a=x;
+    b=y;
     }
     public void getValues()
     {
@@ -47,24 +41,53 @@ public class Main
     public static void main(String args[])
     {
     Operations op = new Operations();
-        
-        op.putValues();
+    Scanner sc = new Scanner(System.in);    
+    
+    System.out.println("Enter First Number: ");
+    int x = sc.nextInt();
+    System.out.println("Enter Second Number: ");
+    int y = sc.nextInt();
+    
+        op.putValues(x,y);
         op.getValues();
-        System.out.println(op.add());
-        System.out.println(op.sub());
-        System.out.println(op.mul());
-        System.out.println(op.div());
+
+    System.out.println("1.Addition");
+    System.out.println("2.Substraction");
+    System.out.println("3.Multiplication");
+    System.out.println("4.Division");
+
+    System.out.print("Choose an operation: ");
+    int choice = sc.nextInt();
+
+    switch(choice)
+    {
+        case 1 : System.out.println("Addition: "+op.add());
+            break;
+        case 2 : System.out.println("Substraction: "+op.sub());
+            break;
+        case 3: System.out.println("Multiplication :"+op.mul());
+            break;
+        case 4 : System.out.println("Division: "+op.div());
+            break;
+        default : System.out.println("Invalid choice! Choose correct option.");
+    }
+    
     }
 }
 
 
 /*
-Version 0.1
+Version 0.2
 
-Learnt and Implemented: Scanner input, inheritance, classes and objects, methods
+Learnt and Implemented:
+1. Scanner input, inheritance, classes and objects, methods
 used: variables and arithmetic operations
+2. Menu Driven program using switch-case, user choice handling
 
 Other Learnings:
 1. separated data storage, operations and execution
+2. fall through behavior of switch case without break
+3. Scanner class object instead of creating in putvalues directly 
+pass values to putvalues() through main class - better design 
 
 */
