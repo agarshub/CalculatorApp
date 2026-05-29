@@ -3,12 +3,12 @@ import java.util.Scanner;
 class Values
 {
 protected int a,b;
-    public void putValues(int x,int y)
+    public void setValues(int x,int y)
     {
     a=x;
     b=y;
     }
-    public void getValues()
+    public void displayValues()
     {
         System.out.println("The values are: "+a+" "+b);
     }
@@ -48,11 +48,11 @@ public class Main
     System.out.println("Enter Second Number: ");
     int y = sc.nextInt();
     
-        op.putValues(x,y);
-        op.getValues();
+        op.setValues(x,y);
+        op.displayValues();
 
     System.out.println("1.Addition");
-    System.out.println("2.Substraction");
+    System.out.println("2.Subtraction");
     System.out.println("3.Multiplication");
     System.out.println("4.Division");
 
@@ -63,7 +63,7 @@ public class Main
     {
         case 1 : System.out.println("Addition: "+op.add());
             break;
-        case 2 : System.out.println("Substraction: "+op.sub());
+        case 2 : System.out.println("Subtraction: "+op.sub());
             break;
         case 3: System.out.println("Multiplication :"+op.mul());
             break;
@@ -83,11 +83,14 @@ Learnt and Implemented:
 1. Scanner input, inheritance, classes and objects, methods
 used: variables and arithmetic operations
 2. Menu Driven program using switch-case, user choice handling
+3. Centralized Input Handling
 
 Other Learnings:
 1. separated data storage, operations and execution
 2. fall through behavior of switch case without break
 3. Scanner class object instead of creating in putvalues directly 
 pass values to putvalues() through main class - better design 
+4. through putValues() separated input collection from object state assignment
+5. proffessional convention : putValues() getValues() : setValues() displayValues()
 
 */
