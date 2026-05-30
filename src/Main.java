@@ -8,31 +8,25 @@ protected int a,b;
     a=x;
     b=y;
     }
-    /* A good programmer never uses what is not necessary.
-    public void displayValues()
-    {
-        System.out.println("The values are: "+a+" "+b);
-    }
-    */
 }
-class Operations extends Values
+class Operations
 {
-    int add()
+    int add(int a,int b)
     {
         return a+b;
     }
 
-    int sub()
+    int subtract(int a,int b)
     {
         return a-b;
     }
 
-    int mul()
+    int multiply(int a,int b)
     {
         return a*b;
     }
 
-    double div()
+    double divide(int a,int b)
     {
         if(b==0)
         {
@@ -47,46 +41,45 @@ public class Main
 {
     public static void main(String args[])
     {
+    Values val = new Values();
     Operations op = new Operations();
     Scanner sc = new Scanner(System.in);    
     boolean running = true;
 
-    while(running)
-    {
     System.out.println("Enter First Number: ");
     int x = sc.nextInt();
     System.out.println("Enter Second Number: ");
     int y = sc.nextInt();
     
-        op.setValues(x,y);
-        //op.displayValues();
+    val.setValues(x,y);
 
-      
-    System.out.println("1.Addition");
-    System.out.println("2.Subtraction");
-    System.out.println("3.Multiplication");
-    System.out.println("4.Division");
-    System.out.println("5.Exit!");
+    while(running)
+    {      
+        System.out.println("1.Addition");
+        System.out.println("2.Subtraction");
+        System.out.println("3.Multiplication");
+        System.out.println("4.Division");
+        System.out.println("5.Exit!");
 
-    System.out.print("Choose an operation: ");
-    int choice = sc.nextInt();
+        System.out.print("Choose an operation: ");
+        int choice = sc.nextInt();
 
-    switch(choice)
-    {
-        case 1 : System.out.println("Addition: "+op.add());
+        switch(choice)
+        {
+        case 1 : System.out.println("Addition: "+op.add(val.a,val.b));
             break;
-        case 2 : System.out.println("Subtraction: "+op.sub());
+        case 2 : System.out.println("Subtraction: "+op.subtract(val.a,val.b));
             break;
-        case 3: System.out.println("Multiplication :"+op.mul());
+        case 3: System.out.println("Multiplication :"+op.multiply(val.a,val.b));
             break;
-        case 4 : System.out.println("Division: "+op.div());
+        case 4 : System.out.println("Division: "+op.divide(val.a,val.b));
             break;
         case 5 : System.out.println("Exitting Calculator!!");
                     sc.close();
                     running = false;
                     break;
         default : System.out.println("Invalid choice! Choose correct option.");
-    }
+        }
     }
 
     }
@@ -103,7 +96,8 @@ used: variables and arithmetic operations
 3. Centralized Input Handling
 4. repeated execution, user interaction flow through loop
 5. Loopp control variable (running) for user desired running of program
-
+6. Created separate object for values class and used the stored values
+7. Operations recieve numbers as parameters instead of inheriting them.
 
 Other Learnings:
 1. separated data storage, operations and execution
@@ -114,10 +108,13 @@ pass values to putvalues() through main class - better design
 5. proffessional convention : putValues() getValues() : setValues() displayValues()
 6. Division by 0 gives infinity which is not correct mathematically for a calculator
 7. A real calculator doesnot print the values again after taking input.
+8. now i can exit when ever i want. without entering values.
+9. single time input. multiple time operations
+10. write complete names like multiply, divide instead of mul, div.
 
 
 OOPS understanding improvement:
-1. Every extended object is a type of its super class.
+1. Every sub class is a type of its super class.
     But Operations is not a Value. (type of value)
     eg: Dog is an Animal. So we can write class Dog extends Animal.
 
