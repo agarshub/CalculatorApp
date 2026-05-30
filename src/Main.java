@@ -2,11 +2,19 @@ import java.util.Scanner;
 
 class Values
 {
-protected int a,b;
+private int a,b;
     public void setValues(int x,int y)
     {
     a=x;
     b=y;
+    }
+    public int getA()
+    {
+        return a;
+    }
+    public int getB()
+    {
+        return b;
     }
 }
 class Operations
@@ -66,13 +74,13 @@ public class Main
 
         switch(choice)
         {
-        case 1 : System.out.println("Addition: "+op.add(val.a,val.b));
+        case 1 : System.out.println("Addition: "+op.add(val.getA(),val.getB()));
             break;
-        case 2 : System.out.println("Subtraction: "+op.subtract(val.a,val.b));
+        case 2 : System.out.println("Subtraction: "+op.subtract(val.getA(),val.getB()));
             break;
-        case 3: System.out.println("Multiplication :"+op.multiply(val.a,val.b));
+        case 3: System.out.println("Multiplication :"+op.multiply(val.getA(),val.getB()));
             break;
-        case 4 : System.out.println("Division: "+op.divide(val.a,val.b));
+        case 4 : System.out.println("Division: "+op.divide(val.getA(),val.getB()));
             break;
         case 5 : System.out.println("Exitting Calculator!!");
                     sc.close();
@@ -95,9 +103,10 @@ used: variables and arithmetic operations
 2. Menu Driven program using switch-case, user choice handling
 3. Centralized Input Handling
 4. repeated execution, user interaction flow through loop
-5. Loopp control variable (running) for user desired running of program
+5. Loop control variable (running) for user desired running of program
 6. Created separate object for values class and used the stored values
-7. Operations recieve numbers as parameters instead of inheriting them.
+7. Operations receive numbers as parameters instead of inheriting them.
+
 
 Other Learnings:
 1. separated data storage, operations and execution
@@ -107,7 +116,7 @@ pass values to putvalues() through main class - better design
 4. through putValues() separated input collection from object state assignment
 5. proffessional convention : putValues() getValues() : setValues() displayValues()
 6. Division by 0 gives infinity which is not correct mathematically for a calculator
-7. A real calculator doesnot print the values again after taking input.
+7. A real calculator does not print the values again after taking input.
 8. now i can exit when ever i want. without entering values.
 9. single time input. multiple time operations
 10. write complete names like multiply, divide instead of mul, div.
@@ -117,6 +126,7 @@ OOPS understanding improvement:
 1. Every sub class is a type of its super class.
     But Operations is not a Value. (type of value)
     eg: Dog is an Animal. So we can write class Dog extends Animal.
+2. Never directly use another class internal state. use them through methods.
 
 
 */
