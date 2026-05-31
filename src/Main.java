@@ -52,15 +52,44 @@ public class Main
     Values val = new Values();
     Operations op = new Operations();
     Scanner sc = new Scanner(System.in);    
-    boolean running = true;
 
-    System.out.println("Enter First Number: ");
-    int x = sc.nextInt();
-    System.out.println("Enter Second Number: ");
-    int y = sc.nextInt();
+    int x=0,y=0 ; // initialized outside trycatch block
     
+    boolean isValid = false; // input Validation loop control variable
+    while(!isValid) // continuously asking for input until user enters a valid input
+    {
+        System.out.println("Enter First Number: ");
+        try
+        {
+        x = sc.nextInt();
+        isValid = true;
+        }
+        catch(Exception e)
+        {
+        System.out.println("Please enter a valid number: "+e);
+        sc.nextLine(); //clears bad input from scanner buffer.
+        }
+    }
+
+    isValid = false; // resetting loop control variable to false
+    while(!isValid)
+    {
+        System.out.println("Enter Second Number: ");
+        try
+        {
+        y = sc.nextInt();
+        isValid = true;
+        }
+        catch(Exception e)
+        {
+        System.out.println("Please enter a valid number: "+e);
+        sc.nextLine(); // sc.next() also works
+        }
+    }
+
     val.setValues(x,y);
 
+    boolean running = true;
     while(running)
     {      
         System.out.println("1.Addition");
@@ -70,7 +99,21 @@ public class Main
         System.out.println("5.Exit!");
 
         System.out.print("Choose an operation: ");
-        int choice = sc.nextInt();
+        int choice = 0;
+        isValid = false;
+        while (!isValid)
+        {
+            try
+            {
+            choice = sc.nextInt();
+            isValid = true;
+            }
+            catch(Exception e)
+            {
+            System.out.println("Invalid choice! Choose a number: "+e);
+            sc.nextLine();
+            }
+        }
 
         switch(choice)
         {
@@ -95,7 +138,7 @@ public class Main
 
 
 /*
-Version 0.3
+Version 0.4
 
 Learnt and Implemented:
 1. Scanner input, inheritance, classes and objects, methods
@@ -106,7 +149,8 @@ used: variables and arithmetic operations
 5. Loop control variable (running) for user desired running of program
 6. Created separate object for values class and used the stored values
 7. Operations receive numbers as parameters instead of inheriting them.
-
+8. try-catch, Exception Handling
+9. Input Validation Loop (very common and useful technique in real world)
 
 Other Learnings:
 1. separated data storage, operations and execution
@@ -117,9 +161,18 @@ pass values to putvalues() through main class - better design
 5. proffessional convention : putValues() getValues() : setValues() displayValues()
 6. Division by 0 gives infinity which is not correct mathematically for a calculator
 7. A real calculator does not print the values again after taking input.
-8. now i can exit when ever i want. without entering values.
+8. Once valid numbers are entered, the user can perform multiple operations
+   and exit at any time through the menu.
 9. single time input. multiple time operations
 10. write complete names like multiply, divide instead of mul, div.
+11. Initialized the variables outside try catch
+    and updated values inside the try catch block.
+12. The user has to compulsorily choose a right number before he can proceed to the further program
+    This is handled through try catch while entering input.
+13. Learnt input validation using loops and exception handling.
+14. Another use of while loop while entering values from user is,
+    the intialized values will not be used in any case until user types it.
+    Without while loop, it might have caught the exception and taken x=0 as input by default
 
 
 OOPS understanding improvement:
@@ -127,6 +180,14 @@ OOPS understanding improvement:
     But Operations is not a Value. (type of value)
     eg: Dog is an Animal. So we can write class Dog extends Animal.
 2. Never directly use another class internal state. use them through methods.
-
+3. Variables created inside a try block only exist inside that specific block,
+    because of Variable Scope. { .. }
+4. If the catch block recieves a bad input then the bad input stays stuck
+    in the scanner's memory.
+    This results in scanner object trying to read the same bad input again and again.
+    To avoid this we clear the bad input by using sc.nextLine() or sc.next() in catch block.
+5. Difference between next() and nextLine()
+    sc.next() removes one token
+    sc.nextLine() removes the entire line.
 
 */
