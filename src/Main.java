@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 class Values
 {
@@ -17,6 +18,7 @@ private int a,b;
         return b;
     }
 }
+
 class Operations
 {
     int add(int a,int b)
@@ -47,45 +49,68 @@ class Operations
 
 public class Main
 {
+    static int getValidInt(Scanner sc, String prompt)
+    {
+        int inputInt = 0;
+        boolean isValid = false;
+        while(!isValid)
+        {
+            System.out.print(prompt);
+            try
+            {
+            inputInt = sc.nextInt();
+            isValid=true;
+            }
+            catch(InputMismatchException e)
+            {
+                System.out.println("Please enter a valid number: "+e);
+                sc.nextLine();
+            }
+        }
+        return inputInt;
+    }
     public static void main(String args[])
     {
     Values val = new Values();
     Operations op = new Operations();
     Scanner sc = new Scanner(System.in);    
 
-    int x=0,y=0 ; // initialized outside trycatch block
-    
-    boolean isValid = false; // input Validation loop control variable
-    while(!isValid) // continuously asking for input until user enters a valid input
-    {
-        System.out.println("Enter First Number: ");
-        try
-        {
-        x = sc.nextInt();
-        isValid = true;
-        }
-        catch(Exception e)
-        {
-        System.out.println("Please enter a valid number: "+e);
-        sc.nextLine(); //clears bad input from scanner buffer.
-        }
-    }
+    int x = getValidInt(sc,"Enter First Number: " );
+    int y = getValidInt(sc,"Enter Second Number: ");
 
-    isValid = false; // resetting loop control variable to false
-    while(!isValid)
-    {
-        System.out.println("Enter Second Number: ");
-        try
-        {
-        y = sc.nextInt();
-        isValid = true;
-        }
-        catch(Exception e)
-        {
-        System.out.println("Please enter a valid number: "+e);
-        sc.nextLine(); // sc.next() also works
-        }
-    }
+    // int x=0,y=0 ; // initialized outside trycatch block
+    
+    // boolean isValid = false; // input Validation loop control variable
+    // while(!isValid) // continuously asking for input until user enters a valid input
+    // {
+    //     System.out.println("Enter First Number: ");
+    //     try
+    //     {
+    //     x = sc.nextInt();
+    //     isValid = true;
+    //     }
+    //     catch(Exception e)
+    //     {
+    //     System.out.println("Please enter a valid number: "+e);
+    //     sc.nextLine(); //clears bad input from scanner buffer.
+    //     }
+    // }
+
+    // isValid = false; // resetting loop control variable to false
+    // while(!isValid)
+    // {
+    //     System.out.println("Enter Second Number: ");
+    //     try
+    //     {
+    //     y = sc.nextInt();
+    //     isValid = true;
+    //     }
+    //     catch(Exception e)
+    //     {
+    //     System.out.println("Please enter a valid number: "+e);
+    //     sc.nextLine(); // sc.next() also works
+    //     }
+    // }
 
     val.setValues(x,y);
 
@@ -98,23 +123,24 @@ public class Main
         System.out.println("4.Division");
         System.out.println("5.Exit!");
 
-        System.out.print("Choose an operation: ");
-        int choice = 0;
-        isValid = false;
-        while (!isValid)
-        {
-            try
-            {
-            choice = sc.nextInt();
-            isValid = true;
-            }
-            catch(Exception e)
-            {
-            System.out.println("Invalid choice! Choose a number: "+e);
-            sc.nextLine();
-            }
-        }
+        // System.out.print("Choose an operation: ");
+        // int choice = 0;
+        // isValid = false;
+        // while (!isValid)
+        // {
+        //     try
+        //     {
+        //     choice = sc.nextInt();
+        //     isValid = true;
+        //     }
+        //     catch(Exception e)
+        //     {
+        //     System.out.println("Invalid choice! Choose a number: "+e);
+        //     sc.nextLine();
+        //     }
+        // }
 
+        int choice = getValidInt(sc,"Choose an operation: ");
         switch(choice)
         {
         case 1 : System.out.println("Addition: "+op.add(val.getA(),val.getB()));
@@ -138,7 +164,7 @@ public class Main
 
 
 /*
-Version 0.4
+Version 0.5
 
 Learnt and Implemented:
 1. Scanner input, inheritance, classes and objects, methods
@@ -151,6 +177,8 @@ used: variables and arithmetic operations
 7. Operations receive numbers as parameters instead of inheriting them.
 8. try-catch, Exception Handling
 9. Input Validation Loop (very common and useful technique in real world)
+10. Method Extraction, DRY principle (Donot Repeat Yourself), Reusable Code.
+
 
 Other Learnings:
 1. separated data storage, operations and execution
@@ -189,5 +217,14 @@ OOPS understanding improvement:
 5. Difference between next() and nextLine()
     sc.next() removes one token
     sc.nextLine() removes the entire line.
+6. A static method belongs to the class itself, not to an object of that class.
+    So we can use it without creating an object with in the class.
+    To use a static method from another class, call it using ClassName.methodName().
+7. I have used InputMismatchException e instead of Exception e while handling the error.
+    Note that here I needed to import another package. java.util.InputMismatchException.
+    But when I used Exception e I need not import a package that is because,
+    Exception.java is file in the lang package while InputMismatchExcpetion.java is a file of util package.
+    And we know that every .java file contains lang package by default.
+    Thats why when I used InputMismatchException, I had to import its package first.
 
 */
