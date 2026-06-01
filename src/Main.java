@@ -1,47 +1,28 @@
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
-class Values
-{
-private int a,b;
-    public void setValues(int x,int y)
-    {
-    a=x;
-    b=y;
-    }
-    public int getA()
-    {
-        return a;
-    }
-    public int getB()
-    {
-        return b;
-    }
-}
-
 class Operations
 {
-    int add(int a,int b)
+    static int add(int a,int b)
     {
         return a+b;
     }
 
-    int subtract(int a,int b)
+    static int subtract(int a,int b)
     {
         return a-b;
     }
 
-    int multiply(int a,int b)
+    static int multiply(int a,int b)
     {
         return a*b;
     }
 
-    double divide(int a,int b)
+    static double divide(int a,int b)
     {
         if(b==0)
         {
-            System.out.println("Cannot divide by zero!");
-            return 0;
+            throw new ArithmeticException("Can't divide by zero!");
         }
         return (double)a/b;
     }
@@ -71,48 +52,10 @@ public class Main
     }
     public static void main(String args[])
     {
-    Values val = new Values();
-    Operations op = new Operations();
     Scanner sc = new Scanner(System.in);    
 
     int x = getValidInt(sc,"Enter First Number: " );
     int y = getValidInt(sc,"Enter Second Number: ");
-
-    // int x=0,y=0 ; // initialized outside trycatch block
-    
-    // boolean isValid = false; // input Validation loop control variable
-    // while(!isValid) // continuously asking for input until user enters a valid input
-    // {
-    //     System.out.println("Enter First Number: ");
-    //     try
-    //     {
-    //     x = sc.nextInt();
-    //     isValid = true;
-    //     }
-    //     catch(Exception e)
-    //     {
-    //     System.out.println("Please enter a valid number: "+e);
-    //     sc.nextLine(); //clears bad input from scanner buffer.
-    //     }
-    // }
-
-    // isValid = false; // resetting loop control variable to false
-    // while(!isValid)
-    // {
-    //     System.out.println("Enter Second Number: ");
-    //     try
-    //     {
-    //     y = sc.nextInt();
-    //     isValid = true;
-    //     }
-    //     catch(Exception e)
-    //     {
-    //     System.out.println("Please enter a valid number: "+e);
-    //     sc.nextLine(); // sc.next() also works
-    //     }
-    // }
-
-    val.setValues(x,y);
 
     boolean running = true;
     while(running)
@@ -123,33 +66,23 @@ public class Main
         System.out.println("4.Division");
         System.out.println("5.Exit!");
 
-        // System.out.print("Choose an operation: ");
-        // int choice = 0;
-        // isValid = false;
-        // while (!isValid)
-        // {
-        //     try
-        //     {
-        //     choice = sc.nextInt();
-        //     isValid = true;
-        //     }
-        //     catch(Exception e)
-        //     {
-        //     System.out.println("Invalid choice! Choose a number: "+e);
-        //     sc.nextLine();
-        //     }
-        // }
-
         int choice = getValidInt(sc,"Choose an operation: ");
         switch(choice)
         {
-        case 1 : System.out.println("Addition: "+op.add(val.getA(),val.getB()));
+        case 1 : System.out.println("Addition: "+Operations.add(x,y));
             break;
-        case 2 : System.out.println("Subtraction: "+op.subtract(val.getA(),val.getB()));
+        case 2 : System.out.println("Subtraction: "+Operations.subtract(x,y));
             break;
-        case 3: System.out.println("Multiplication :"+op.multiply(val.getA(),val.getB()));
+        case 3: System.out.println("Multiplication :"+Operations.multiply(x,y));
             break;
-        case 4 : System.out.println("Division: "+op.divide(val.getA(),val.getB()));
+        case 4 :try
+                {
+                    System.out.println("Division: "+Operations.divide(x,y));
+                }
+                catch(ArithmeticException e)
+                {
+                    System.out.println(e.getMessage());
+                }
             break;
         case 5 : System.out.println("Exitting Calculator!!");
                     sc.close();
@@ -178,6 +111,10 @@ used: variables and arithmetic operations
 8. try-catch, Exception Handling
 9. Input Validation Loop (very common and useful technique in real world)
 10. Method Extraction, DRY principle (Donot Repeat Yourself), Reusable Code.
+11. Now noticing that there is no instance variables and no stored state
+    in class Operations, I handled this using static methods.
+    No need to create Operations class Object.
+    They act like utility/helper methods.
 
 
 Other Learnings:
@@ -226,5 +163,6 @@ OOPS understanding improvement:
     Exception.java is file in the lang package while InputMismatchExcpetion.java is a file of util package.
     And we know that every .java file contains lang package by default.
     Thats why when I used InputMismatchException, I had to import its package first.
-
+8. Forecfully throwing exceptions to handle division by zero. and using try catch
+    to handle the exception.
 */
